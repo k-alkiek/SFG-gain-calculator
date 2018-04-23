@@ -25,8 +25,8 @@ function getAdjacencyList() {
 }
 
 /*
- *	Takes a node id and detects cycles at this node as parameter.
- *	Returns a list of arrays. Each array contains id of nodes in the a loop
+ *	Searches for loops at a given node
+ *	Returns a list of arrays. Each array reprsenets a loop and contains ids of nodes in the loop
  */
 function getLoopsAtNode(startNodeId) {
 	function dfs(nodeId, visited) {
@@ -51,6 +51,40 @@ function getLoopsAtNode(startNodeId) {
 	dfs(startNodeId, [])
 
 	return loops
+}
+
+/*
+ *	Searches for paths between two nodes, given their ids
+ *	Returns a list of arrays. Each array represents a path and contains ids of nodes in the path
+ */
+function getForwardPaths(startNodeId, endNodeId) {
+	function dfs(nodeId, visited) {
+		if (visited.includes(nodeId)) {
+			return
+		}
+		if (nodeId == endNodeId) {
+			visited.push(endNodeId)
+			paths.push(clone(visited))
+			visited.pop()
+			return
+		}
+
+		visited.push(nodeId)
+		var neighbours = adjacencyList[nodeId].neighbours
+		for (var i = 0; i < neighbours.length; i++) {
+			if (!visited.includes(neighbours[i].id)) {
+				dfs(neighbours[i].id, visited)
+			}
+		}
+		visited.pop()
+		return
+	}
+
+	var paths = []
+	var adjacencyList = getAdjacencyList()
+	dfs(startNodeId, [])
+
+	return paths
 }
 
 function clone(object) {
