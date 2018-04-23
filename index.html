@@ -6,7 +6,9 @@
     <meta name="description" content="A finite state machine chart with editable and interactive features." />
     <!-- Copyright 1998-2018 by Northwoods Software Corporation. -->
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/go.js"></script>
     <script src="assets/js/graph_editor.js"></script>
     <script src="assets/js/sfg.js"></script>
@@ -16,14 +18,16 @@
   <body onload="init()">
     <div id="sample">
 
+
+
+
       <div class="jumbotron">
         <div class="container">
           <h1>Signal Flow Graph Evaluator</h1>
           <div id="myDiagramDiv" style="border: solid 1px black; width: 100%; height: 600px"></div>
-          <p>
-            <div class="row">
+            <div class="row ">
               <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                <a class="btn btn-primary btn-lg">Evaluate</a>
+                <a class="btn btn-primary btn-lg" style="margin-top: 10px;">Evaluate</a>
               </div>
               <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
               </div>
@@ -32,17 +36,29 @@
               </div>
             </div>
 
-            <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
-              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 align-text-bottom">
-                <h4>Diagram Model saved in JSON format</h4>
-              </div>
-              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
-                <a class="btn btn-primary btn-lg" onclick="save()">Save</a>
 
-                <a class="btn btn-primary btn-lg" onclick="load()">Load</a>
-              </div> 
-            </div>
-        <textarea id="mySavedModel" style="width:100%;height:300px">
+
+            <div class="container">
+              <h2></h2>
+              <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#data">Graph data</a></li>
+                <li><a data-toggle="tab" href="#results">Results</a></li>
+              </ul>
+
+              <div class="tab-content">
+                <div id="data" class="tab-pane fade in active">
+                  <div>
+                    <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 align-text-bottom">
+                        <h4>Diagram Model saved in JSON format</h4>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
+                        <a class="btn btn-primary btn-lg" onclick="save()">Save</a>
+
+                        <a class="btn btn-primary btn-lg" onclick="load()">Load</a>
+                      </div> 
+                    </div>
+                    <textarea id="mySavedModel" style="width:100%;height:300px">
 { "class": "go.GraphLinksModel",
   "nodeKeyProperty": "id",
   "nodeDataArray": [ 
@@ -62,14 +78,20 @@
 {"from":-4, "to":-3, "points":[649.9386594767091,214.3358368684777,600.8890300853429,232.33787302440882,543.70416266285,228.0822211785784,486.6273164732051,212.54660033844786], "text":"-12"},
 {"from":-3, "to":-3, "points":[473.01172035545096,187.32865045566223,485.5,152,441.5,161,456.0463359294408,188.03435087691383], "text":"3"}
  ]}
-        </textarea>
+                    </textarea>
+                  </div>
+                </div>
+                <div id="results" class="tab-pane fade">
+                  <h3>Results</h3>
+                  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+              </div>
             </div>
-          </p>
+
+            
+          </div>
         </div>
       </div>
-      
-
-
     </div>
   </body>
 </html>
