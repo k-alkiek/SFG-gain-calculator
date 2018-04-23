@@ -29,7 +29,7 @@ function getAdjacencyList() {
  *	Returns a list of arrays. Each array contains id of nodes in the a loop
  */
 function getLoopsAtNode(startNodeId) {
-	function dfs(nodeId, visited, level) {
+	function dfs(nodeId, visited) {
 		if (visited.includes(nodeId)) {
 			if (nodeId == startNodeId) {
 				loops.push(clone(visited))
@@ -40,8 +40,7 @@ function getLoopsAtNode(startNodeId) {
 		visited.push(nodeId)
 		var neighbours = adjacencyList[nodeId].neighbours
 		for (var i = 0; i < neighbours.length; i++) {
-			console.log("at level: " + level + " ,VISITING: " + neighbours[i].id)
-			dfs(neighbours[i].id, visited, level+1)
+			dfs(neighbours[i].id, visited)
 		}
 		visited.pop()
 		return
@@ -49,7 +48,7 @@ function getLoopsAtNode(startNodeId) {
 
 	var loops = []
 	var adjacencyList = getAdjacencyList()
-	dfs(startNodeId, [], 0)
+	dfs(startNodeId, [])
 
 	return loops
 }
