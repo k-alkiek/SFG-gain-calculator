@@ -7,19 +7,53 @@ function getEdgeList() {
 }
 
 function getAdjacencyList() {
-	edgeList = getEdgeList()
-	nodesList = getNodesList()
-	adjacencyList = {}
+	var edgeList = getEdgeList()
+	var nodesList = getNodesList()
+	var adjacencyList = {}
 
-	for (i = 0; i < nodesList.length; i++) {
-		node = nodesList[i]
+	for (var i = 0; i < nodesList.length; i++) {
+		var node = nodesList[i]
 		adjacencyList[node.id] = { name: node.text, neighbours: [] }
 	}
 
-	for (i = 0; i < edgeList.length; i++) {
-		edge = edgeList[i]
+	for (var i = 0; i < edgeList.length; i++) {
+		var edge = edgeList[i]
 		adjacencyList[edge.from].neighbours.push({ id: edge.to, weight: edge.text})
 	}
 
 	return adjacencyList
+}
+
+/*
+ *	Takes a node id and detects cycles at this node as parameter.
+ *	Returns a list of arrays. Each array contains id of nodes in the a loop
+ */
+function getLoopsAtNode(startNodeId) {
+	function dfs(nodeId, visited, level) {
+		if (visited.includes(nodeId)) {
+			if (nodeId == startNodeId) {
+				loops.push(clone(visited))
+			}
+			return
+		}
+
+		visited.push(nodeId)
+		var neighbours = adjacencyList[nodeId].neighbours
+		for (var i = 0; i < neighbours.length; i++) {
+			console.log("at level: " + level + " ,VISITING: " + neighbours[i].id)
+			dfs(neighbours[i].id, visited, level+1)
+		}
+		visited.pop()
+		return
+	}
+
+	var loops = []
+	var adjacencyList = getAdjacencyList()
+	dfs(startNodeId, [], 0)
+
+	return loops
+}
+
+function clone(object) {
+	return JSON.parse(JSON.stringify(object))
 }
