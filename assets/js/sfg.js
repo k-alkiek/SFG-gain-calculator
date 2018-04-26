@@ -90,3 +90,19 @@ function getForwardPaths(startNodeId, endNodeId) {
 function clone(object) {
 	return JSON.parse(JSON.stringify(object))
 }
+
+function pathGain(pathList) {
+	var edgeList = getEdgeList()
+	var from = pathList[0]
+	var to;
+	var gain = 0;
+	for(var i = 1; i < pathList.length; i++) {
+		to = pathList[i]
+		for(var e = 0; e < edgeList.length; e++) {
+			if (edgeList[e].from == from && edgeList[e].to == to) {
+				gain += edgeList[e].text;
+			}
+		}
+		from = to;
+	}
+}
