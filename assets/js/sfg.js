@@ -25,6 +25,39 @@ function getAdjacencyList() {
 	return adjacencyList
 }
 
+
+function reachesAll(nodeId, adjacencyList) {
+
+	var visited = {}
+
+	for (var node in adjacencyList) {// Initialising the visited object.
+	    if (adjacencyList.hasOwnProperty(node)) {
+	        visited[node] = false;
+	    }
+	}
+
+	explore(nodeId);
+	function explore(nodeExplored) {
+		if (visited[nodeExplored] == true) {
+			return
+		} else {
+			visited[nodeExplored] = true;
+			neighbours = adjacencyList[nodeExplored].neighbours;
+			for (var i = 0; i < neighbours.length; i++) {
+				explore(neighbours[i].id);
+			}
+		}
+	}
+
+	for (var node in visited) {// Check if all nodes are visited.
+		if (visited.hasOwnProperty(node)) {
+			if (visited[node] == false) return false;
+		}
+	}
+
+	return true;
+}
+
 /*
  *	Searches for loops at a given node
  *	Returns a list of arrays. Each array reprsenets a loop and contains ids of nodes in the loop
@@ -69,8 +102,6 @@ function getLoops() {
 		for (var j = 0; j < loopsAtNode.length; j++) {
 			var found = false
 			for (var k = 0; k < loopsLen; k++) {
-				loopsAtNode[j].sort()
-				loops[k].sort()
 				if (arraysEqual(loopsAtNode[j], loops[k])) {
 					found = true
 				}
@@ -129,7 +160,7 @@ function pathGain(pathList) {
 		to = pathList[i]
 		for(var e = 0; e < edgeList.length; e++) {
 			if (edgeList[e].from == from && edgeList[e].to == to) {
-				gain += edgeList[e].text;
+				gain *= edgeList[e].text;
 			}
 		}
 		from = to;
@@ -143,12 +174,11 @@ function loopGain(loopList) {
 	var to = loopList[0];
 	for(var e = 0; e < edgeList.length; e++) {
 		if (edgeList[e].from == from && edgeList[e].to == to) {
-			gain += edgeList[e].text;
+			gain *= edgeList[e].text;
 		}
 	}
 	return gain;
 }
-
 
 // Helper Functions
 
@@ -161,9 +191,9 @@ function arraysEqual(a, b) {
 	if (a == null || b == null) return false;
 	if (a.length != b.length) return false;
 
-	// If you don't care about the order of the elements inside
-	// the array, you should sort both arrays here.
-
+	a.sort()
+	b.sort()
+	
 	for (var i = 0; i < a.length; ++i) {
 		if (a[i] !== b[i]) return false;
 	}
