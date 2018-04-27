@@ -207,7 +207,7 @@ function pathGain(pathList) {
 	var edgeList = getEdgeList()
 	var from = pathList[0]
 	var to;
-	var gain = 0;
+	var gain = 1;
 	for(var i = 1; i < pathList.length; i++) {
 		to = pathList[i]
 		for(var e = 0; e < edgeList.length; e++) {
@@ -224,6 +224,7 @@ function loopGain(loopList) {
 	var gain = pathGain(loopList);
 	var from = loopList[loopList.length - 1];
 	var to = loopList[0];
+	var edgeList = getEdgeList()
 	for(var e = 0; e < edgeList.length; e++) {
 		if (edgeList[e].from == from && edgeList[e].to == to) {
 			gain *= edgeList[e].text;
