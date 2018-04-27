@@ -38,8 +38,8 @@ function init() {
             fill: $(go.Brush, "Linear", { 0: "rgb(254, 201, 0)", 1: "rgb(254, 162, 0)" }),
             stroke: null,
             portId: "",  // this Shape is the Node's port, not the whole Node
-            fromLinkable: true, fromLinkableSelfNode: true, fromLinkableDuplicates: true,
-            toLinkable: true, toLinkableSelfNode: true, toLinkableDuplicates: true,
+            fromLinkable: true, fromLinkableSelfNode: true, fromLinkableDuplicates: false,
+            toLinkable: true, toLinkableSelfNode: true, toLinkableDuplicates: false,
             cursor: "pointer"
           }),
         $(go.TextBlock,
@@ -90,7 +90,7 @@ function init() {
       var linkdata = {
         from: model.getKeyForNodeData(fromData),  // or just: fromData.id
         to: model.getKeyForNodeData(toData),
-        text: "transition"
+        text: "1"
       };
       // and add the link data to the model
       model.addLinkData(linkdata);
@@ -126,7 +126,7 @@ function init() {
                       { 0: "rgb(240, 240, 240)", 0.3: "rgb(240, 240, 240)", 1: "rgba(240, 240, 240, 0)" }),
               stroke: null
             }),
-          $(go.TextBlock, "transition",  // the label text
+          $(go.TextBlock, "1",  // the label text
             {
               textAlign: "center",
               font: "9pt helvetica, arial, sans-serif",
@@ -135,6 +135,7 @@ function init() {
             },
             // editing the text automatically updates the model data
             new go.Binding("text").makeTwoWay())
+
         )
       );
 
