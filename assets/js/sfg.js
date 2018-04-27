@@ -24,6 +24,39 @@ function getAdjacencyList() {
 	return adjacencyList
 }
 
+
+function reachesAll(nodeId, adjacencyList) {
+
+	var visited = {}
+
+	for (var node in adjacencyList) {// Initialising the visited object.
+	    if (adjacencyList.hasOwnProperty(node)) {
+	        visited[node] = false;
+	    }
+	}
+
+	explore(nodeId);
+	function explore(nodeExplored) {
+		if (visited[nodeExplored] == true) {
+			return
+		} else {
+			visited[nodeExplored] = true;
+			neighbours = adjacencyList[nodeExplored].neighbours;
+			for (var i = 0; i < neighbours.length; i++) {
+				explore(neighbours[i].id);
+			}
+		}
+	}
+
+	for (var node in visited) {// Check if all nodes are visited.
+		if (visited.hasOwnProperty(node)) {
+			if (visited[node] == false) return false;
+		}
+	}
+
+	return true;
+}
+
 /*
  *	Searches for loops at a given node
  *	Returns a list of arrays. Each array reprsenets a loop and contains ids of nodes in the loop
