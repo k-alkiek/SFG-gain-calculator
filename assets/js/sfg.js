@@ -1,3 +1,4 @@
+
 function getNodesList() {
 	return JSON.parse(myDiagram.model.toJson()).nodeDataArray;
 }
@@ -54,6 +55,38 @@ function getLoopsAtNode(startNodeId) {
 }
 
 /*
+ *	Uses getLoopsAtNode() to search for loops in the whole graph
+ *	Returns a list of arrays. Each array reprsenets a loop and contains ids of nodes in the loop
+ */
+function getLoops() {
+	var loops = [];
+	var nodesList = getNodesList()
+	for (var i = 0; i < nodesList.length; i++) {
+		var loopsAtNode = getLoopsAtNode(nodesList[i].id)
+		var loopsLen = loops.length
+		console.log(loopsAtNode)
+
+		for (var j = 0; j < loopsAtNode.length; j++) {
+			var found = false
+			for (var k = 0; k < loopsLen; k++) {
+				loopsAtNode[j].sort()
+				loops[k].sort()
+				if (arraysEqual(loopsAtNode[j], loops[k])) {
+					found = true
+				}
+			}
+			if (!found) {
+				loops.push(loopsAtNode[j])
+			}
+		}
+
+	}
+	return loops
+}
+
+
+
+/*
  *	Searches for paths between two nodes, given their ids
  *	Returns a list of arrays. Each array represents a path and contains ids of nodes in the path
  */
@@ -87,10 +120,6 @@ function getForwardPaths(startNodeId, endNodeId) {
 	return paths
 }
 
-function clone(object) {
-	return JSON.parse(JSON.stringify(object))
-}
-
 function pathGain(pathList) {
 	var edgeList = getEdgeList()
 	var from = pathList[0]
@@ -118,4 +147,25 @@ function loopGain(loopList) {
 		}
 	}
 	return gain;
+}
+
+
+// Helper Functions
+
+function clone(object) {
+	return JSON.parse(JSON.stringify(object))
+}
+
+function arraysEqual(a, b) {
+	if (a === b) return true;
+	if (a == null || b == null) return false;
+	if (a.length != b.length) return false;
+
+	// If you don't care about the order of the elements inside
+	// the array, you should sort both arrays here.
+
+	for (var i = 0; i < a.length; ++i) {
+		if (a[i] !== b[i]) return false;
+	}
+	return true;
 }
