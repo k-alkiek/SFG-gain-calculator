@@ -31,9 +31,9 @@ function reachesAll(nodeId, adjacencyList) {
 	var visited = {}
 
 	for (var node in adjacencyList) {// Initialising the visited object.
-	    if (adjacencyList.hasOwnProperty(node)) {
-	        visited[node] = false;
-	    }
+		if (adjacencyList.hasOwnProperty(node)) {
+			visited[node] = false;
+		}
 	}
 
 	explore(nodeId);
@@ -115,6 +115,58 @@ function getLoops() {
 	return loops
 }
 
+/*
+ *	Given a list of loops and number n, returns a list of all possible combinations for n non-touching loops
+ *	Returns a list of arrays. Each array represents a path and contains ids of nodes in the path
+ */
+function matchNonTouching(loops, n) {
+	var combine = function (input, len, start) {
+		if(len === 0) {
+			combinations.push(clone(result))
+			return;
+		}
+		for (var i = start; i <= input.length - len; i++) {
+			result[n - len] = input[i];
+			combine(input, len-1, i+1 );
+		}
+	}
+	var combinations = []
+	var nonTouchingCombinations = []
+	var result = []
+
+	if (loops.length < n)
+		return []
+	combine(loops, n, 0);
+
+	for (var i = 0; i < combinations.length; i++) {
+		group = combinations[i]
+		noTouchingLoops = true
+		for (var j = 0; j < group.length && noTouchingLoops; j++) {
+			for (var k = 0; k < group.length && noTouchingLoops; k++) {
+				if (j === k) { continue }
+				if (touching(group[j], group[k])) { noTouchingLoops = false }
+			}
+		}
+		if (noTouchingLoops) {
+			nonTouchingCombinations.push(group)
+		}
+	}
+
+	return nonTouchingCombinations
+}
+
+/*
+ *	Given two paths, Returns true if these path are touching and false otherwise
+ */
+function touching(path1, path2) {
+	for (var i = 0; i < path1.length; i++) {
+		for (var j = 0; j < path2.length; j++) {
+			if (path1[i] == path2[j])
+				return true
+		}
+	}
+	return false
+}
 
 
 /*
@@ -193,7 +245,7 @@ function arraysEqual(a, b) {
 
 	a.sort()
 	b.sort()
-	
+
 	for (var i = 0; i < a.length; ++i) {
 		if (a[i] !== b[i]) return false;
 	}
