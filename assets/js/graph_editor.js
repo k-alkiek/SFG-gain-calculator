@@ -1,4 +1,26 @@
+inputNodeData = null
+outputNodeData = null
+
+function mouseEnter(e, obj) {
+  var shape = obj.findObject("SHAPE");
+  shape.fill = "#6DAB80";
+};
+
+function mouseLeave(e, obj) {
+  var shape = obj.findObject("SHAPE");
+  // Return the Shape's fill and stroke to the defaults
+  shape.fill = go.GraphObject.make(go.Brush, "Linear", { 0: "rgb(254, 201, 0)", 1: "rgb(254, 162, 0)" });
+
+};
+
+function mouseClicked(e, obj) {
+  if (selectingInputNode) inputNodeData = obj.part.data
+  if (selectingOutputNode) outputNodeData = obj.part.data
+  resetButtons()
+}
+
 function init() {
+
     if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
     var $ = go.GraphObject.make;  // for conciseness in defining templates
 
@@ -29,11 +51,12 @@ function init() {
 
     // define the Node template
     myDiagram.nodeTemplate =
-      $(go.Node, "Auto",
+      $(go.Node, "Auto", {mouseEnter: mouseEnter, mouseLeave: mouseLeave, click: mouseClicked},
         new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
         // define the node's outer shape, which will surround the TextBlock
-        $(go.Shape, "RoundedRectangle",
+        $(go.Shape, "RoundedRectangle", 
           {
+            name: "SHAPE",
             parameter1: 20,  // the corner has a large radius
             fill: $(go.Brush, "Linear", { 0: "rgb(254, 201, 0)", 1: "rgb(254, 162, 0)" }),
             stroke: null,
@@ -147,6 +170,8 @@ function init() {
   function save() {
     document.getElementById("mySavedModel").value = myDiagram.model.toJson();
   }
+
   function load() {
     myDiagram.model = go.Model.fromJson(document.getElementById("mySavedModel").value);
   }
+

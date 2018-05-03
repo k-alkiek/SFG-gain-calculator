@@ -5,7 +5,7 @@ function evalualteLoopsSeries(loops) {
 
 
 	while (combinations.length > 0) {
-		term = 0
+		var term = 0
 		for (var j = 0; j < combinations.length; j++) {
 			group = combinations[j]
 			factor = 1;
@@ -19,7 +19,7 @@ function evalualteLoopsSeries(loops) {
 		combinations = matchNonTouching(loops, i)
 		i ++
 	}
-	return term
+	return result
 }
 
 function evaluateDelta() {
@@ -38,6 +38,14 @@ function evaluateDeltaI(path) {
 
 }
 
-function evaluateMasonFormula() {
+function evaluateMasonFormula(startNodeId, endNodeId) {
+	var paths = getForwardPaths(startNodeId, endNodeId)
+	var result = 0
+	for (var i = 0; i < paths.length; i++) {
+		console.log("Path " + i + " is " + paths[i] + " with delta " + evaluateDeltaI(paths[i]))
+		result += evaluateDeltaI(paths[i]) * pathGain(paths[i])
+	}
 
+	result /= evaluateDelta()
+	return result
 }

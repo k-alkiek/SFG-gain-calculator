@@ -97,7 +97,6 @@ function getLoops() {
 	for (var i = 0; i < nodesList.length; i++) {
 		var loopsAtNode = getLoopsAtNode(nodesList[i].id)
 		var loopsLen = loops.length
-		console.log(loopsAtNode)
 
 		for (var j = 0; j < loopsAtNode.length; j++) {
 			var found = false
