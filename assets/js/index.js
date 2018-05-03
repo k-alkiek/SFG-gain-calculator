@@ -12,6 +12,7 @@ function evaluateClicked() {
 		}
 
 	result = evaluateMasonFormula(inputNodeData.id, outputNodeData.id)
+	$('[href="#results"]').tab('show');
 	console.log(result)
 }
 

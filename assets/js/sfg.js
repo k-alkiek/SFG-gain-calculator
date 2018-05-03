@@ -207,11 +207,14 @@ function pathGain(pathList) {
 	var from = pathList[0]
 	var to;
 	var gain = 1;
+	debugger
 	for(var i = 1; i < pathList.length; i++) {
 		to = pathList[i]
 		for(var e = 0; e < edgeList.length; e++) {
 			if (edgeList[e].from == from && edgeList[e].to == to) {
-				gain *= edgeList[e].text;
+				if (edgeList[e].text != undefined) {
+					gain *= edgeList[e].text;
+				}
 			}
 		}
 		from = to;
@@ -226,7 +229,9 @@ function loopGain(loopList) {
 	var edgeList = getEdgeList()
 	for(var e = 0; e < edgeList.length; e++) {
 		if (edgeList[e].from == from && edgeList[e].to == to) {
-			gain *= edgeList[e].text;
+			if (edgeList[e].text != undefined) {
+					gain *= edgeList[e].text;
+				}
 		}
 	}
 	return gain;
