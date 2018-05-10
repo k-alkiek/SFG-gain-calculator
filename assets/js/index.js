@@ -14,12 +14,8 @@ function checkValidation() {
 }
 
 function evaluateClicked() {
-
     if (checkValidation()) {
-        var result = evaluateMasonFormula(inputNodeData.id, outputNodeData.id)
         $('[href="#results"]').tab('show');
-        console.log(result)
-
     }
 }
 
@@ -94,8 +90,13 @@ function openResultElement(evt, elementID) {
 }
 
 function masonsFormulaDisplay() {
+    var outputContainer = document.getElementById('masonsFormulaContainer');
+    while (outputContainer.firstChild) {// Clear container
+        outputContainer.removeChild(outputContainer.firstChild);
+    }
+    var result = evaluateMasonFormula(inputNodeData.id, outputNodeData.id);
+    outputContainer.appendChild(document.createTextNode("was calculated to be " + result + '.'));
 
-    console.log('Displaying Mason\'s formula');
 }
 
 function forwardPathsDisplay() {
@@ -127,6 +128,28 @@ function loopsDisplay() {
         var node = document.createElement("li");
         node.appendChild(document.createTextNode(buffer));
         outputContainer.appendChild(node);
+    }
+
+    var i = 2;
+    var combinations = matchNonTouching(loops, i);
+    while (combinations.length > 1  ) {
+        outputContainer.appendChild(document.createElement("br"));
+        var node = document.createElement("h4");
+        var header = "Combinations of " + i + " non-touching loops are of loops: ";
+        node.appendChild(document.createTextNode(header));
+        outputContainer.appendChild(node);
+
+        for (var j = 0; j < combinations.length; j++) {
+            var list = document.createElement("ul");
+            var group = combinations[j];
+            for (var k = 0; k < group.length; k++) {
+                var item = document.createElement("li");
+                item.appendChild(document.createTextNode('Loop ' + pathToString(group[k]) + ' '));
+            }
+            outputContainer.appendChild(list);
+        }
+        i++;
+        combinations = matchNonTouching(loops, i);
     }
 }
 
