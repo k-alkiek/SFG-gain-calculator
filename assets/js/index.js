@@ -107,7 +107,7 @@ function forwardPathsDisplay() {
     }
     var buffer;
     for (var i = 0; i < paths.length; i++) {
-        buffer = "Path " + (i+1) + " is " + pathToString(paths[i]) + "with delta " + evaluateDeltaI(paths[i]) + " and gain " + pathGain(paths[i])
+        buffer = "Path " + (i+1) + " is " + pathToString(paths[i]) + "of gain of " + pathGain(paths[i])
         var node = document.createElement("li");
         node.appendChild(document.createTextNode(buffer));
         outputContainer.appendChild(node);
@@ -132,6 +132,18 @@ function loopsDisplay() {
 
 function deltasDisplay() {
     console.log('Displaying Deltas');
+    const paths = getForwardPaths(inputNodeData.id, outputNodeData.id);
+    const outputContainer = document.getElementById('deltasContainer');
+    while (outputContainer.firstChild) {// Clear container
+        outputContainer.removeChild(outputContainer.firstChild);
+    }
+    var buffer;
+    for (var i = 0; i < paths.length; i++) {
+        buffer = "Delta " + (i+1) + " of path " + pathToString(paths[i]) + "is with delta " + evaluateDeltaI(paths[i]);
+        var node = document.createElement("li");
+        node.appendChild(document.createTextNode(buffer));
+        outputContainer.appendChild(node);
+    }
 }
 
 function pathToString(path) {
