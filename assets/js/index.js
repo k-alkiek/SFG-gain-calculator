@@ -60,15 +60,22 @@ function openResultElement(evt, elementID) {
     const functionName = elementID + "Display";
 
     const failMessages = document.getElementsByClassName('failMessage');
+    var resultContainers = document.getElementsByClassName('resultContainer');
 
     if (checkValidation()) {
         for (var h = 0; h < failMessages.length; h++) {
             failMessages[h].style.display = 'none';
         }
+        for (var h = 0; h < resultContainers.length; h++) {
+            resultContainers[h].style.display = 'block';
+        }
         window[functionName]();
     } else {
         for (var h = 0; h < failMessages.length; h++) {
             failMessages[h].style.display = 'block';
+        }
+        for (var h = 0; h < resultContainers.length; h++) {
+            resultContainers[h].style.display = 'none';
         }
     }
 
