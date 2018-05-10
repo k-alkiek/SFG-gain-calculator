@@ -100,11 +100,14 @@ function masonsFormulaDisplay() {
 
 function forwardPathsDisplay() {
     console.log('Displaying Forward Paths');
-    const paths = getForwardPaths(inputNodeData.id, outputNodeData.id)
+    const paths = getForwardPaths(inputNodeData.id, outputNodeData.id);
     const outputContainer = document.getElementById('forwardPathsContainer');
+    while (outputContainer.firstChild) {// Clear container
+        outputContainer.removeChild(outputContainer.firstChild);
+    }
     var buffer;
     for (var i = 0; i < paths.length; i++) {
-        buffer = "Path " + i + " is " + pathToString(paths[i]) + "with delta " + evaluateDeltaI(paths[i]) + " and gain " + pathGain(paths[i])
+        buffer = "Path " + (i+1) + " is " + pathToString(paths[i]) + "with delta " + evaluateDeltaI(paths[i]) + " and gain " + pathGain(paths[i])
         var node = document.createElement("li");
         node.appendChild(document.createTextNode(buffer));
         outputContainer.appendChild(node);
@@ -113,6 +116,18 @@ function forwardPathsDisplay() {
 
 function loopsDisplay() {
     console.log('Displaying Loops');
+    const loops = getLoops();
+    const outputContainer = document.getElementById('loopsContainer');
+    while (outputContainer.firstChild) {// Clear container
+        outputContainer.removeChild(outputContainer.firstChild);
+    }
+    var buffer;
+    for (var i = 0; i < loops.length; i++) {
+        buffer = "Loop " + (i+1) + " is " + pathToString(loops[i]) + "with gain " + loopGain(loops[i])
+        var node = document.createElement("li");
+        node.appendChild(document.createTextNode(buffer));
+        outputContainer.appendChild(node);
+    }
 }
 
 function deltasDisplay() {
