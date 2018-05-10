@@ -1,5 +1,5 @@
-selectingInputNode = false
-selectingOutputNode = false
+var selectingInputNode = false
+var selectingOutputNode = false
 
 function evaluateClicked() {
 	if (inputNodeData == null || outputNodeData == null) {
@@ -9,9 +9,9 @@ function evaluateClicked() {
 	if (!reachesAll(inputNodeData.id, getAdjacencyList())) {
 		alert("Graph must be connected!")
 		return
-		}
+	}
 
-	result = evaluateMasonFormula(inputNodeData.id, outputNodeData.id)
+	var result = evaluateMasonFormula(inputNodeData.id, outputNodeData.id)
 	$('[href="#results"]').tab('show');
 	console.log(result)
 }
