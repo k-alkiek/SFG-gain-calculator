@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>State Chart</title>
+    <title>SFG gain calculator</title>
     <meta name="description" content="A finite state machine chart with editable and interactive features." />
     <!-- Copyright 1998-2018 by Northwoods Software Corporation. -->
     <meta charset="UTF-8">
@@ -52,14 +52,14 @@
               <div class="tab-content">
                 <div id="data" class="tab-pane fade in active">
                   <div>
-                    <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+                    <div class="row" style="margin-top: 10px;">
                       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 align-text-bottom">
-                        <h3>Diagram model saved in JSON format</h3>
+                        <h3>Diagram model in JSON format</h3>
                       </div>
                       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
-                        <a class="btn btn-primary btn-lg" onclick="save()">Save</a>
+                        <a class="btn btn-primary btn-lg" onclick="save()">Export JSON</a>
 
-                        <a class="btn btn-primary btn-lg" onclick="load()">Load</a>
+                        <a class="btn btn-primary btn-lg" onclick="load()">Load JSON</a>
                       </div> 
                     </div>
                     <textarea id="mySavedModel" style="width:100%;height:300px">
@@ -108,15 +108,15 @@
                     </div>
                     <div id="forwardPaths" class="tabcontent">
                         <h4 class="failMessage">Nothing to show.</h4>
-                        <ul id="forwardPathsContainer" class="resultContainer"></ul>
+                        <ul id="forwardPathsContainer" class="resultContainer list-group list-group-flush"></ul>
                     </div>
                     <div id="loops" class="tabcontent">
                         <h4 class="failMessage">Nothing to show.</h4>
-                        <ul id="loopsContainer" class="resultContainer"></ul>
+                        <ul id="loopsContainer" class="resultContainer list-group list-group-flush"></ul>
                     </div>
                     <div id="deltas" class="tabcontent">
                         <h4 class="failMessage">Nothing to show.</h4>
-                        <ul id="deltasContainer" class="resultContainer"></ul>
+                        <ul id="deltasContainer" class="resultContainer list-group list-group-flush"></ul>
                     </div>
 
                 </div>

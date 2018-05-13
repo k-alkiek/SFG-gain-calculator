@@ -102,7 +102,7 @@ function masonsFormulaDisplay() {
         outputContainer.removeChild(outputContainer.firstChild);
     }
     var result = evaluateMasonFormula(inputNodeData.id, outputNodeData.id);
-    outputContainer.appendChild(document.createTextNode("was calculated to be " + result + '.'));
+    outputContainer.appendChild(document.createTextNode("was calculated to be " + result));
 
 }
 
@@ -117,6 +117,7 @@ function forwardPathsDisplay() {
     for (var i = 0; i < paths.length; i++) {
         buffer = "Path " + (i+1) + " is " + pathToString(paths[i]) + "of gain of " + pathGain(paths[i])
         var node = document.createElement("li");
+        node.className = "list-group-item";
         node.appendChild(document.createTextNode(buffer));
         outputContainer.appendChild(node);
     }
@@ -133,6 +134,7 @@ function loopsDisplay() {
     for (var i = 0; i < loops.length; i++) {
         buffer = "Loop " + (i+1) + " is " + pathToString(loops[i]) + "with gain " + loopGain(loops[i])
         var node = document.createElement("li");
+        node.className = "list-group-item";
         node.appendChild(document.createTextNode(buffer));
         outputContainer.appendChild(node);
     }
@@ -171,6 +173,7 @@ function deltasDisplay() {
     for (var i = 0; i < paths.length; i++) {
         buffer = "Delta " + (i+1) + " of path " + pathToString(paths[i]) + "is with delta " + evaluateDeltaI(paths[i]);
         var node = document.createElement("li");
+        node.className = "list-group-item";
         node.appendChild(document.createTextNode(buffer));
         outputContainer.appendChild(node);
     }
