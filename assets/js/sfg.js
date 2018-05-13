@@ -207,7 +207,6 @@ function pathGain(pathList) {
 	var from = pathList[0]
 	var to;
 	var gain = 1;
-	debugger
 	for(var i = 1; i < pathList.length; i++) {
 		to = pathList[i]
 		for(var e = 0; e < edgeList.length; e++) {

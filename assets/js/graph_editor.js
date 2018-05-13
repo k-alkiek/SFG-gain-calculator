@@ -3,13 +3,15 @@ outputNodeData = null
 
 function mouseEnter(e, obj) {
   var shape = obj.findObject("SHAPE");
-  shape.fill = "#6DAB80";
+  shape.fill = "#95a5a6";
+  shape.stroke = "#27ae60";
 };
 
 function mouseLeave(e, obj) {
   var shape = obj.findObject("SHAPE");
   // Return the Shape's fill and stroke to the defaults
-  shape.fill = go.GraphObject.make(go.Brush, "Linear", { 0: "rgb(254, 201, 0)", 1: "rgb(254, 162, 0)" });
+  shape.fill = "#ecf0f1";
+  shape.stroke = "#27ae60";
 
 };
 
@@ -32,7 +34,7 @@ function init() {
           // have mouse wheel events zoom in and out instead of scroll up and down
           "toolManager.mouseWheelBehavior": go.ToolManager.WheelZoom,
           // support double-click in background creating a new node
-          "clickCreatingTool.archetypeNodeData": { text: "new node" },
+          "clickCreatingTool.archetypeNodeData": { text: "X" },
           // enable undo & redo
           "undoManager.isEnabled": true
         });
@@ -54,12 +56,16 @@ function init() {
       $(go.Node, "Auto", {mouseEnter: mouseEnter, mouseLeave: mouseLeave, click: mouseClicked},
         new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
         // define the node's outer shape, which will surround the TextBlock
-        $(go.Shape, "RoundedRectangle", 
+        $(go.Shape, "Circle", 
           {
+            width: 40,
+            height: 40,
+
             name: "SHAPE",
             parameter1: 20,  // the corner has a large radius
-            fill: $(go.Brush, "Linear", { 0: "rgb(254, 201, 0)", 1: "rgb(254, 162, 0)" }),
-            stroke: null,
+            fill: "#ecf0f1",
+            stroke: "#27ae60",
+            strokeWidth: 3,
             portId: "",  // this Shape is the Node's port, not the whole Node
             fromLinkable: true, fromLinkableSelfNode: true, fromLinkableDuplicates: false,
             toLinkable: true, toLinkableSelfNode: true, toLinkableDuplicates: false,
@@ -67,7 +73,8 @@ function init() {
           }),
         $(go.TextBlock,
           {
-            font: "bold 11pt helvetica, bold arial, sans-serif",
+            stroke: "#2c3e50",
+            font: "bold 12pt helvetica, bold arial, sans-serif",
             editable: true  // editing the text automatically updates the model data
           },
           new go.Binding("text").makeTwoWay())
@@ -101,7 +108,7 @@ function init() {
       var fromNode = adornment.adornedPart;
       var fromData = fromNode.data;
       // create a new "State" data object, positioned off to the right of the adorned Node
-      var toData = { text: "new" };
+      var toData = { text: "X" };
       var p = fromNode.location.copy();
       p.x += 200;
       toData.loc = go.Point.stringify(p);  // the "loc" property is a string, not a Point object
@@ -139,7 +146,8 @@ function init() {
         new go.Binding("points").makeTwoWay(),
         new go.Binding("curviness"),
         $(go.Shape,  // the link shape
-          { strokeWidth: 1.5 }),
+          { strokeWidth: 1.5 ,
+          stroke: "#2c3e50"}),
         $(go.Shape,  // the arrowhead
           { toArrow: "standard", stroke: null }),
         $(go.Panel, "Auto",
@@ -151,8 +159,9 @@ function init() {
             }),
           $(go.TextBlock, "1",  // the label text
             {
+              stroke: "#2980b9",
               textAlign: "center",
-              font: "9pt helvetica, arial, sans-serif",
+              font: "bold 11pt helvetica, arial, sans-serif",
               margin: 4,
               editable: true  // enable in-place editing
             },
