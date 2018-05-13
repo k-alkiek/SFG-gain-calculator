@@ -7,6 +7,7 @@
     <!-- Copyright 1998-2018 by Northwoods Software Corporation. -->
     <meta charset="UTF-8">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/customSS.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/go.js"></script>
@@ -53,7 +54,7 @@
                   <div>
                     <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
                       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 align-text-bottom">
-                        <h4>Diagram Model saved in JSON format</h4>
+                        <h3>Diagram model saved in JSON format</h3>
                       </div>
                       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
                         <a class="btn btn-primary btn-lg" onclick="save()">Save</a>
@@ -89,7 +90,35 @@
                 </div>
                 <div id="results" class="tab-pane fade">
                   <h3>Results</h3>
-                  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <div class="tab">
+                        <button class="tablinks" onclick="openResultElement(event, 'masonsFormula')">Mason's Formula</button>
+                        <button class="tablinks" onclick="openResultElement(event, 'forwardPaths')">Forward Paths</button>
+                        <button class="tablinks" onclick="openResultElement(event, 'loops')">Loops</button>
+                        <button class="tablinks" onclick="openResultElement(event, 'deltas')">Deltas</button>
+                    </div>
+
+                    <!-- Tabs to hold results data for display -->
+                    <div id="masonsFormula" class="tabcontent">
+                        <h4 class="failMessage">Nothing to show.</h4>
+                        <div class="resultContainer">
+                            <h3>The transfer function </h3>
+                            <img src="assets/images/Formula.png">
+                            <h3 id="masonsFormulaContainer"></h3>
+                        </div>
+                    </div>
+                    <div id="forwardPaths" class="tabcontent">
+                        <h4 class="failMessage">Nothing to show.</h4>
+                        <ul id="forwardPathsContainer" class="resultContainer"></ul>
+                    </div>
+                    <div id="loops" class="tabcontent">
+                        <h4 class="failMessage">Nothing to show.</h4>
+                        <ul id="loopsContainer" class="resultContainer"></ul>
+                    </div>
+                    <div id="deltas" class="tabcontent">
+                        <h4 class="failMessage">Nothing to show.</h4>
+                        <ul id="deltasContainer" class="resultContainer"></ul>
+                    </div>
+
                 </div>
               </div>
             </div>

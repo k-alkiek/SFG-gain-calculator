@@ -229,8 +229,8 @@ function loopGain(loopList) {
 	for(var e = 0; e < edgeList.length; e++) {
 		if (edgeList[e].from == from && edgeList[e].to == to) {
 			if (edgeList[e].text != undefined) {
-					gain *= edgeList[e].text;
-				}
+				gain *= edgeList[e].text;
+			}
 		}
 	}
 	return gain;

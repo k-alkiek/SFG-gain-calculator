@@ -14,7 +14,7 @@ function evalualteLoopsSeries(loops) {
 		}
 		term *= (-1)**i
 		result += term
-		i ++
+		i++
 		combinations = matchNonTouching(loops, i)
 	}
 	return result
@@ -34,7 +34,6 @@ function evaluateDeltaI(path) {
 	}
 	console.log(loops)
 	return evalualteLoopsSeries(nonTouchingloops)
-
 }
 
 function evaluateMasonFormula(startNodeId, endNodeId) {
